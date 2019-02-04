@@ -1,0 +1,13 @@
+{
+    "users" : {
+        "valeria": {
+            "tabs": [
+                "https://www.youtube.com/watch?v=wHZCYi1K664&t=300s",
+                "chrome://extensions/",
+                "https://www.youtube.com/watch?v=YxWMxJONp7E",
+                "https://duckduckgo.com/?q=best+javascript+extensions+vs+code&atb=v154-3&ia=web",
+                "https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome"
+            ]
+        }
+    }
+  }

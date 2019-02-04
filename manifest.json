@@ -1,6 +1,13 @@
 {
-    "name": "Save your tabs",
+    "name": "Tab saver",
     "version": "1.0.0",
     "description": "Save your tabs for later!",
-    "manifest_version": 2
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs"
+    ]
 }

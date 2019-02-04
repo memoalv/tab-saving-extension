@@ -1,0 +1,9 @@
+
+html, body {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: .5em;
+    min-height: 300px;
+    width: 200px;
+}
