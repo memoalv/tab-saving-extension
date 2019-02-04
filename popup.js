@@ -20,7 +20,6 @@ function getActiveTabs() {
         
         saveActiveTabs(tabsURLs);
     });
-    
 }
 
 /**
