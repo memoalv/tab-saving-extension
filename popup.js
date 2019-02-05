@@ -1,11 +1,16 @@
 var username = 'guillermo';
 
 let saveTabs = document.getElementById('btn-saveTabs');
-
 saveTabs.onclick = getActiveTabs;
 
+window.onload = function() {
+    let date = getMoment();
+    console.log(date);
+    
+}
+
 /**
- * Prepares an array of active links and sends it to saveTabs
+ * Prepares an array of active links and sends it to saveActiveTabs
  */
 function getActiveTabs() {
     chrome.tabs.query({
@@ -35,13 +40,27 @@ function saveActiveTabs(tabsURLs) {
                 alert('An error occurred while saving the data.')
             }
     }
-    
-    let data = {
-        tabs: tabsURLs
-    }
 
-    http.open("PUT", `https://save-tabs.firebaseio.com/users/${username}.json`, true);
+    http.open("PUT", `https://save-tabs.firebaseio.com/users/${username}/${getMoment()}.json`, true);
     http.setRequestHeader("Content-Type", "application/json");
-    http.send(JSON.stringify(data));
+    http.send(JSON.stringify(tabsURLs));
 }
 
+/**
+ * @returns this moments date. (yyy-mm-dd hh:mm)
+ */
+function getMoment() {
+    let moment = new Date();
+
+    const dd = moment.getDate();
+    const mm = moment.getMonth() + 1;
+    const yyyy = moment.getFullYear();
+
+    const hh = moment.getHours();
+    const min = moment.getMinutes();
+    const ss = moment.getSeconds();
+
+    moment = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
+
+    return moment;
+}
