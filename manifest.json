@@ -8,8 +8,5 @@
         "default_icon": "./images/19_x_19.png",
         "default_popup": "popup.html"
     },
-    "permissions": [
-        "activeTab",
-        "tabs"
-    ]
+    "permissions": ["activeTab", "identity", "identity.email"]
 }

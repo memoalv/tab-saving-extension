@@ -1,12 +1,15 @@
-var username = 'guillermo';
-
 let saveTabs = document.getElementById('btn-saveTabs');
 saveTabs.onclick = getActiveTabs;
 
-window.onload = function() {
-    let date = getMoment();
-    console.log(date);
-    
+window.onload = getUserInfo();
+
+let user = {};
+
+function getUserInfo() {
+    chrome.identity.getProfileUserInfo(userInfo => {
+        user.email = userInfo.email;
+        user.id = userInfo.id;
+    })
 }
 
 /**
@@ -15,14 +18,14 @@ window.onload = function() {
 function getActiveTabs() {
     chrome.tabs.query({
         currentWindow: true
-    },(tabs) => {
+    }, (tabs) => {
 
         let tabsURLs = [];
 
         tabs.forEach(tab => {
             tabsURLs.push(tab.url);
-        }); 
-        
+        });
+
         saveActiveTabs(tabsURLs);
     });
 }
@@ -35,19 +38,22 @@ function saveActiveTabs(tabsURLs) {
 
     let http = new XMLHttpRequest();
 
-    http.onreadystatechange = function() {
+    http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status != 200) {
-                alert('An error occurred while saving the data.')
-            }
+            alert('An error occurred while saving the data.')
+        }
     }
 
-    http.open("PUT", `https://save-tabs.firebaseio.com/users/${username}/${getMoment()}.json`, true);
+    console.log(tabsURLs);
+    
+
+    http.open("PUT", `https://save-tabs.firebaseio.com/users/${user.id}/${getMoment()}.json`, true);
     http.setRequestHeader("Content-Type", "application/json");
     http.send(JSON.stringify(tabsURLs));
 }
 
 /**
- * @returns this moments date. (yyy-mm-dd hh:mm)
+ * @returns this moments date. (yyyy-mm-dd hh:mm:ss)
  */
 function getMoment() {
     let moment = new Date();
