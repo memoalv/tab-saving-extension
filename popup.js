@@ -19,7 +19,6 @@ function getActiveTabs() {
     chrome.tabs.query({
         currentWindow: true
     }, (tabs) => {
-
         let tabsURLs = [];
 
         tabs.forEach(tab => {
@@ -45,7 +44,7 @@ function saveActiveTabs(tabsURLs) {
     }
 
     console.log(tabsURLs);
-    
+
 
     http.open("PUT", `https://save-tabs.firebaseio.com/users/${user.id}/${getMoment()}.json`, true);
     http.setRequestHeader("Content-Type", "application/json");
