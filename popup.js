@@ -25,28 +25,38 @@ function getActiveTabs() {
  */
 function saveActiveTabs(tabsURLs) {
     console.log(tabsURLs)
+    const storage = chrome.storage.sync;
     //TODO: use local storage API to save tabs
     //https://developer.chrome.com/apps/storage
 
-    localStorage.setItem(sessions);
+    storage.get(['sessions'], function (sessions) {
+        console.log(sessions);
 
-    if (localStorage.getItem(sessions) === null) {
-        // tabs object didn't exist on localStorage
-        let newSessionsArray = [];
-        newSessionsArray.push(getSessionData());
+        if (Object.entries(sessions).length === 0 && sessions.constructor === Object) {
 
-        let sessionsObj = {
-            sessions: newSessionsArray
+            sessions.sessions.push(getSessionData(tabsURLs));
+
+            storage.remove('sessions', () => {
+                storage.set(sessions, () => {
+                    console.log('saved');
+                });
+            });
+            // tabs object exists on localStorage
+
+
+        } else {
+            // tabs object didn't exist on localStorage
+            let newSessionsArray = [];
+            newSessionsArray.push(getSessionData());
+
+            let sessionsObj = {
+                sessions: newSessionsArray
+            }
+            storage.set(sessionsObj, () => {
+                console.log('saved');
+            });
         }
-
-        localStorage.setItem(JSON.stringify(sessionsObj));s
-    }
-    else {
-        // tabs object exists on localStorage
-        const previousTabs = JSON.parse(localStorage.getItem(sessions));
-        previousTabs.sessions.push(getSessionData(tabsURLs));
-        localStorage.setItem(JSON.stringify(tabsURLs));
-    }
+    });
 
 }
 
@@ -58,7 +68,8 @@ function saveActiveTabs(tabsURLs) {
 function getSessionData(tabs) {
     return {
         timeStamp: getMoment(),
-        tabs: tabs
+        tabs: tabs,
+        name: ''
     }
 }
 
