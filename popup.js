@@ -1,5 +1,5 @@
-let saveTabs_btn = document.getElementById('btn-saveTabs');
-saveTabs_btn.onclick = getActiveTabs;
+let saveTabs_btn = document.getElementById('btn-saveTabs')
+saveTabs_btn.onclick = getActiveTabs
 
 
 /**
@@ -9,14 +9,14 @@ function getActiveTabs() {
     chrome.tabs.query({
         currentWindow: true
     }, (tabs) => {
-        let tabsURLs = [];
+        let tabsURLs = []
 
         tabs.forEach(tab => {
-            tabsURLs.push(tab.url);
-        });
+            tabsURLs.push(tab.url)
+        })
 
-        saveActiveTabs(tabsURLs);
-    });
+        saveActiveTabs(tabsURLs)
+    })
 }
 
 /**
@@ -25,38 +25,53 @@ function getActiveTabs() {
  */
 function saveActiveTabs(tabsURLs) {
     console.log(tabsURLs)
-    const storage = chrome.storage.sync;
+    const storage = chrome.storage.sync
     //TODO: use local storage API to save tabs
     //https://developer.chrome.com/apps/storage
 
-    storage.get(['sessions'], function (sessions) {
-        console.log(sessions);
+    storage.get(['sessions'], (sessionsLS) => {
+        console.log(sessionsLS)
 
-        if (Object.entries(sessions).length === 0 && sessions.constructor === Object) {
+        if (Object.entries(sessionsLS).length === 0 && sessionsLS.constructor === Object) {
+            console.log('empty obj')
 
-            sessions.sessions.push(getSessionData(tabsURLs));
+            let newSessionsObj = {
+                sessions: []
+            }
 
-            storage.remove('sessions', () => {
-                storage.set(sessions, () => {
-                    console.log('saved');
-                });
-            });
-            // tabs object exists on localStorage
+            let newSession = {
+                timeStamp: getMoment(),
+                tabsURLs: tabsURLs,
+                name: ''
+            }
+
+
+          try {
+            storage.set(newSessionsObj, () => {
+                console.log('saved')
+            })
+          } catch (error) {
+              console.log(error.message)
+              
+          }
+
 
 
         } else {
+            console.log('else')
+
             // tabs object didn't exist on localStorage
-            let newSessionsArray = [];
-            newSessionsArray.push(getSessionData());
+            let newSessionsArray = []
+            newSessionsArray.push(getSessionData())
 
             let sessionsObj = {
                 sessions: newSessionsArray
             }
             storage.set(sessionsObj, () => {
-                console.log('saved');
-            });
+                console.log('saved')
+            })
         }
-    });
+    })
 
 }
 
@@ -77,17 +92,17 @@ function getSessionData(tabs) {
  * @returns this moments date. (yyyy-mm-dd hh:mm:ss)
  */
 function getMoment() {
-    let moment = new Date();
+    let moment = new Date()
 
-    const dd = moment.getDate();
-    const mm = moment.getMonth() + 1;
-    const yyyy = moment.getFullYear();
+    const dd = moment.getDate()
+    const mm = moment.getMonth() + 1
+    const yyyy = moment.getFullYear()
 
-    const hh = moment.getHours();
-    const min = moment.getMinutes();
-    const ss = moment.getSeconds();
+    const hh = moment.getHours()
+    const min = moment.getMinutes()
+    const ss = moment.getSeconds()
 
     moment = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
 
-    return moment;
+    return moment
 }
