@@ -1,6 +1,8 @@
 let saveTabs_btn = document.getElementById('btn-saveTabs')
 saveTabs_btn.onclick = getActiveTabs
 
+let clearLS_btn = document.getElementById('btn-clearLS')
+clearLS_btn.onclick = clearLS
 
 /**
  * Prepares an array of active links and sends it to saveActiveTabs
@@ -24,52 +26,28 @@ function getActiveTabs() {
  * @param {array} tabsURLs
  */
 function saveActiveTabs(tabsURLs) {
-    console.log(tabsURLs)
     const storage = chrome.storage.sync
     //TODO: use local storage API to save tabs
     //https://developer.chrome.com/apps/storage
 
     storage.get(['sessions'], (sessionsLS) => {
         console.log(sessionsLS)
-
+        
         if (Object.entries(sessionsLS).length === 0 && sessionsLS.constructor === Object) {
-            console.log('empty obj')
-
-            let newSessionsObj = {
+            const newSessionsObj = {
                 sessions: []
             }
-
-            let newSession = {
-                timeStamp: getMoment(),
-                tabsURLs: tabsURLs,
-                name: ''
+            newSessionsObj.sessions.push(getSessionData(tabsURLs))
+            try {
+                storage.set(newSessionsObj, () => {
+                    console.log('saved')
+                })
+            } catch (error) {
+                console.log(error.message)
             }
-
-
-          try {
-            storage.set(newSessionsObj, () => {
-                console.log('saved')
-            })
-          } catch (error) {
-              console.log(error.message)
-              
-          }
-
-
 
         } else {
-            console.log('else')
-
-            // tabs object didn't exist on localStorage
-            let newSessionsArray = []
-            newSessionsArray.push(getSessionData())
-
-            let sessionsObj = {
-                sessions: newSessionsArray
-            }
-            storage.set(sessionsObj, () => {
-                console.log('saved')
-            })
+            
         }
     })
 
@@ -105,4 +83,10 @@ function getMoment() {
     moment = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
 
     return moment
+}
+
+function clearLS() {
+    chrome.storage.sync.clear(() => {
+        console.log("cleared")
+    })
 }
