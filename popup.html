@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" media="screen" href="popup.css" />
-</head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tab saving extension</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- own css -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/popup.css" />
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" />
+    <!-- material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!-- materialize css -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/materialize.css" />
+  </head>
 
-<body>
+  <body>
     <header class="main-header">
-        <h1>Save your tabs for later</h1>
+      <h4>Save your tabs for later</h4>
+      <button id="btn-saveTabs" class="custom-btn save-tabs-btn scale-transition">Save tabs</button>
+      <div id="name-form" class="scale-transition hide name-form">
+        <div class="input-field">
+          <input id="session-name" type="text" class="validate" />
+          <label for="session-name">Name yor session</label>
+        </div>
+        <button id="btn-save" class="custom-btn save-btn">Save</button>
+      </div>
     </header>
-    <main class="actions-container">
-        <section>
-
-        </section>
-        <footer>
-            <div class="open-tabs"></div>
-            <button id="btn-saveTabs" class="save-tabs">Save tabs</button>
-            <button id="btn-clearLS" class="save-tabs">Clear</button>
-        </footer>
+    <main class="main-container">
+      <div id="loading-bar" class="progress purple darken-4">
+        <div class="indeterminate indigo lighten-5"></div>
+      </div>
+      <section id="data-container">
+        <div id="no-data-msg" class="no-data-msg hide">
+          There's no saved sessions
+        </div>
+      </section>
     </main>
-    <script src="./popup.js"></script>
-</body>
-
+    <!-- materialize js -->
+    <script src="js/materialize.min.js"></script>
+    <!-- own js -->
+    <script src="js/popup.js"></script>
+  </body>
 </html>
