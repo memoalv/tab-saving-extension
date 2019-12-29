@@ -25,7 +25,7 @@ saveTabs_btn.onclick = showNameForm;
  * Prepares an array of active links and sends it to saveActiveTabs
  */
 function getActiveTabs(e) {
-  if (!e || e.keyCode == 13) {
+  if (e.type == 'click' || e.keyCode == 13) {
     showLoader();
     chrome.tabs.query(
       {
