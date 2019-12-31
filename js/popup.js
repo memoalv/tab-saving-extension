@@ -1,3 +1,5 @@
+//TODO: reorganize dis ugly code
+
 window.onload = getSessions;
 
 function getSessions() {
@@ -247,26 +249,26 @@ function showLoader() {
 function hideNoDataMsg() {
   document.getElementById("no-data-msg").classList.add("hide");
 }
-
 function showNoDataMsg() {
   document.getElementById("no-data-msg").classList.remove("hide");
 }
 
 /**
- * @returns this moments date. (yyyy-mm-dd hh:mm:ss)
+ * Get this moment's timestamp
+ * @returns this moment's timestamp. (yyyy-mm-dd hh:mm:ss)
  */
 const getMoment = () => {
-  let moment = new Date();
+  let now = new Date();
 
-  const dd = moment.getDate();
-  const mm = moment.getMonth() + 1;
-  const yyyy = moment.getFullYear();
+  const dd = now.getDate();
+  const mm = now.getMonth() + 1;
+  const yyyy = now.getFullYear();
 
-  const hh = moment.getHours();
-  const min = moment.getMinutes();
-  const ss = moment.getSeconds();
+  const hh = now.getHours();
+  const min = now.getMinutes();
+  const ss = now.getSeconds();
 
-  moment = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
+  now = `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`;
 
-  return moment;
+  return now;
 };
