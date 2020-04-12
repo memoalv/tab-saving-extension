@@ -92,14 +92,6 @@ h1 {
   background: #bdbdbd;
 }
 
-/* .elementToFadeInAndOut {
-  width:200px;
-  height: 200px;
-  background: red;
-  -webkit-animation: fadeinout 4s linear forwards;
-  animation: fadeinout 4s linear forwards;
-} */
-
 /* keyframes for a n eventual success message when creating sessions */
 @-webkit-keyframes fadeinout {
   0%,
