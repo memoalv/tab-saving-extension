@@ -5,10 +5,12 @@
     "description": "Save your tabs for later!",
     "manifest_version": 2,
     "icons": {
+        "16": "./images/16x16.png",
+        "48": "./images/48x48.png",
         "128": "./images/128x128.png"
     },
     "browser_action": {
-        "default_icon": "./images/19_x_19.png",
+        "default_icon": "./images/16x16.png",
         "default_popup": "popup.html"
     },
     "permissions": ["tabs", "storage"],
