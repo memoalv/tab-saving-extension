@@ -11,4 +11,8 @@ https://github.com/guillermoso/tab-saving-extension
 Please report any issues or questions at the issues section of the project:
 https://github.com/guillermoso/tab-saving-extension/issues
 
-#Installation
+# Installation
+
+Go to the Chrome Web Store and add it to your browser! 
+
+https://chrome.google.com/webstore/detail/tab-saver/mhlahniikpjgcdjcecogmigaihocblhf
