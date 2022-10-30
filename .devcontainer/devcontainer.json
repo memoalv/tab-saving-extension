@@ -1,0 +1,14 @@
+{
+  "name": "Tab Saving Extension",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "shutdownAction": "stopCompose",
+  "service": "extension",
+  "workspaceFolder": "/workspaces/tab-saving-extension",
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "redhat.vscode-xml",
+    "eamodio.gitlens"
+  ]
+}

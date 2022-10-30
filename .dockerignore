@@ -1,0 +1,8 @@
+/node_modules/
+/build/
+
+.DS_Store
+
+/key.pem
+/tab-saving-extension.zip
+/tmp

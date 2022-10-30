@@ -1,0 +1,77 @@
+volumes:
+  temp_folder:
+  node_modules:
+
+services:
+  # The test container - we'll use this as the base for the rest
+  # of the app service definitions:
+  extension:
+    build:
+      context: .
+      target: development
+      args:
+        DEVELOPER_UID: ${UID:-1000}
+        DEVELOPER_USERNAME: ${USER:-you}
+    image: tab-saving-extension:development
+    volumes:
+      # Mount the app code into the app containers:
+      - .:/workspaces/tab-saving-extension
+
+      # After mounting the app code, we will use volumes to store the project's
+      # node modules.
+
+      # In the case of the node modules, the "node_modules" volume will also be
+      # initialized with the development image's installed node modules. Also,
+      # notice how we're mounting the "node_modules" volume *inside* the mounted
+      # source code, effectively replacing any contents you might have on your
+      # project's "node_modules" folder in the container, offering several
+      # advantages:
+      # - We can run the frontend app either from the host (i.e. macOS) or
+      #   using containers without having the host & container clobber the npm
+      #   each other's packages, or avoid conflicting versions for macOS / Linux
+      # - Speeds up the npm operations on the container when running on
+      #   macOS/Windows, since a local volume bind on mac/win is significantly
+      #   slower than a Docker volume, and node module install is very sensitive
+      #   to I/O performance
+      - node_modules:/workspaces/tab-saving-extension/node_modules
+
+    # entrypoint: /workspaces/tab-saving-extension/bin/dev-entrypoint
+
+    # Keep the stdin open, so we can attach to our app container's process
+    # and do things such as byebug, etc:
+    stdin_open: true
+
+    # Enable sending signals (CTRL+C, CTRL+P + CTRL+Q) into the container:
+    tty: true
+
+    # The command we want to execute by default when running the container
+    # [Optional] Required for ptrace-based debuggers like C++, Go, and Rust
+    cap_add:
+      - SYS_PTRACE
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+    # Overrides default command so things don't shut down after the process ends.
+    entrypoint: /workspaces/tab-saving-extension/bin/dev-entrypoint
+    command: vscode-wait
+
+    # depends_on:
+    #   - chrome
+    #   - postgres
+
+    # Specify environment variables available for our app containers. We'll
+    # leave a YML anchor in case we need to override or add more variables if
+    # needed on each app service:
+    environment: &app_environment
+      # # Tells the test suite to use the "chrome" service instead of a local
+      # # chrome install:
+      # CHROME_URL: http://chrome:3333
+
+      HOST: "0.0.0.0"
+
+      DEBIAN_FRONTEND: dialog
+      VSCODE_CONTEXT: "yes"
+
+      # Use VSCode as editor:
+      EDITOR: code -w

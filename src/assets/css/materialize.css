@@ -3,7 +3,7 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
-.purple.darken-4 {
+ .purple.darken-4 {
   background-color: #4a148c !important;
 }
 .indigo.lighten-5 {
@@ -356,7 +356,7 @@ h4 {
   background-color: transparent !important;
   color: #b3b2b2 !important;
   cursor: default;
-} 
+}
 /*!
  * Waves v0.6.0
  * http://fian.my.id/Waves

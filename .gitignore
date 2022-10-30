@@ -1,0 +1,8 @@
+/node_modules/
+/build/
+
+/key.pem
+/tmp
+
+**/*.env
+!**/*example.env

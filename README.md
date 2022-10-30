@@ -13,6 +13,6 @@ https://github.com/guillermoso/tab-saving-extension/issues
 
 # Installation
 
-Go to the Chrome Web Store and add it to your browser! 
+Go to the Chrome Web Store and add it to your browser!
 
 https://chrome.google.com/webstore/detail/tab-saver/mhlahniikpjgcdjcecogmigaihocblhf

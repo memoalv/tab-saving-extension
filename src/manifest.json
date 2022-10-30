@@ -1,0 +1,23 @@
+{
+  "name": "Tab saver",
+  "short_name": "Tab saver",
+  "version": "1.0.0",
+  "description": "Save your tabs for later!",
+  "manifest_version": 3,
+  "icons": {
+      "16": "./assets/16x16.png",
+      "48": "./assets/48x48.png",
+      "128": "./assets/128x128.png"
+  },
+  "action": {
+      "default_icon": {
+          "16": "./assets/16x16.png"
+      },
+      "default_popup": "popup.html"
+  },
+  "permissions": [
+      "tabs",
+      "storage"
+  ],
+  "author": "Guillermo Alvarez"
+}
